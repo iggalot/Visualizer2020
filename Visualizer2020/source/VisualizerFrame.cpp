@@ -8,48 +8,37 @@
 
 wxBEGIN_EVENT_TABLE(VisualizerFrame, wxFrame)
 EVT_MENU(wxID_NEW, VisualizerFrame::OnNewWindow)
-//EVT_MENU(NEW_STEREO_WINDOW, VisualizerFrame::OnNewStereoWindow)
 EVT_MENU(wxID_CLOSE, VisualizerFrame::OnClose)
 wxEND_EVENT_TABLE()
 
-VisualizerFrame::VisualizerFrame(bool stereoWindow)
-    : wxFrame(NULL, wxID_ANY, "wxWidgets OpenGL Cube Sample")
+VisualizerFrame::VisualizerFrame(GLuint wid, GLuint ht) : wxFrame(NULL, wxID_ANY, "Visualizer 1.0")
 {
-    int stereoAttribList[] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_STEREO, 0 };
+    width = wid;
+    height = ht;
 
-    new VisualizerCanvas(this, stereoWindow ? stereoAttribList : NULL);
+    new VisualizerCanvas(this, NULL);
 
     SetIcon(wxICON(sample));
 
     // Make a menubar
     wxMenu* menu = new wxMenu;
     menu->Append(wxID_NEW);
-    //menu->Append(NEW_STEREO_WINDOW, "New Stereo Window");
     menu->AppendSeparator();
     menu->Append(wxID_CLOSE);
     wxMenuBar* menuBar = new wxMenuBar;
-    menuBar->Append(menu, "&Cube");
+    menuBar->Append(menu, "&File");
 
     SetMenuBar(menuBar);
 
     CreateStatusBar();
 
-    SetClientSize(400, 400);
+    SetClientSize(width,height);
     Show();
 
     // test IsDisplaySupported() function:
     static const int attribs[] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0 };
     wxLogStatus("Double-buffered display %s supported",
         wxGLCanvas::IsDisplaySupported(attribs) ? "is" : "not");
-
-    if (stereoWindow)
-    {
-        const wxString vendor = VisualizerFrame::glGetwxString(GL_VENDOR).Lower();
-        const wxString renderer = VisualizerFrame::glGetwxString(GL_RENDERER).Lower();
-        if (vendor.find("nvidia") != wxString::npos &&
-            renderer.find("quadro") == wxString::npos)
-            ShowFullScreen(true);
-    }
 }
 
 void VisualizerFrame::OnClose(wxCommandEvent& WXUNUSED(event))
@@ -60,7 +49,7 @@ void VisualizerFrame::OnClose(wxCommandEvent& WXUNUSED(event))
 
 void VisualizerFrame::OnNewWindow(wxCommandEvent& WXUNUSED(event))
 {
-    new VisualizerFrame();
+    new VisualizerFrame(width, height);
 }
 
 //void VisualizerFrame::OnNewStereoWindow(wxCommandEvent& WXUNUSED(event))
@@ -83,4 +72,5 @@ const wxString VisualizerFrame::glGetwxString(GLenum name)
         return wxString((const char*)v);
 
 }
+
 

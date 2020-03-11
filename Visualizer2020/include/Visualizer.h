@@ -15,11 +15,47 @@
 #include "VisualizerContext.h"
 #include "VisualizerFrame.h"
 
+class GraphicsManager
+{
+public:
+    GLuint height;
+    GLuint width;
+
+    // Default constructor
+    GraphicsManager(GLuint wid, GLuint ht)
+    {
+        width = wid;
+        height = ht;
+    }
+
+    double WinHt() { return height; }
+    double WinWidth() {
+        return width;
+    }
+};
+
 // Define a new application type
 class Visualizer : public wxApp
 {
 public:
-    Visualizer() { m_glContext = NULL; m_glStereoContext = NULL; }
+    GLuint winWidth = 800;
+    GLuint winHeight = 600;
+
+    GraphicsManager* graphicsManager = nullptr;
+
+    // Constructor
+    Visualizer() {
+        m_glContext = NULL;
+        m_glStereoContext = NULL;
+
+        graphicsManager = new GraphicsManager(winWidth, winHeight);
+    }
+
+    // Public Methods
+    GLuint GetWinHt() { return this->winHeight; }
+    void SetWinHt(GLuint height) { this->winHeight = height; }
+    GLuint GetWinWidth() { return this->winWidth; }
+    void SetWinWidth(GLuint width) { this->winWidth = width; }
 
     // Returns the shared context used by all frames and sets it as current for
     // the given canvas.
@@ -36,9 +72,10 @@ private:
     VisualizerContext* m_glStereoContext;
 };
 
-
 // Application instance declaration
 DECLARE_APP(Visualizer)
 
-#endif // _VISUALIZER_H_
+
+
+#endif _VISUALIZER_H_
 

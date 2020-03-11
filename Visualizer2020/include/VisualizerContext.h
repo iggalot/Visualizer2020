@@ -20,5 +20,4 @@ private:
     GLuint m_textures[6];
 };
 
-#endif // _VISUALIZER_CONTEXT_H_
-
+#endif _VISUALIZER_CONTEXT_H_

@@ -17,7 +17,7 @@
 #endif
 
 
-
+class GraphicsManager;
 
 // ----------------------------------------------------------------------------
 // MyApp: the application object
@@ -30,7 +30,7 @@ bool Visualizer::OnInit()
     if (!wxApp::OnInit())
         return false;
 
-    new VisualizerFrame();
+    new VisualizerFrame(this->GetWinWidth(), this->GetWinHt());
 
     return true;
 }
@@ -42,6 +42,8 @@ int Visualizer::OnExit()
 
     return wxApp::OnExit();
 }
+
+
 
 
 

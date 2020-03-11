@@ -6,11 +6,17 @@
 #include "wx/wx.h"
 #include "wx/glcanvas.h"
 
+
+
 // Define a new frame type
 class VisualizerFrame : public wxFrame
 {
+public: 
+    GLuint width;
+    GLuint height;
+
 public:
-    VisualizerFrame(bool stereoWindow = false);
+    VisualizerFrame(GLuint width, GLuint height);
 
 private:
     void OnClose(wxCommandEvent& event);
@@ -22,4 +28,4 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-#endif // _VISUALIZER_FRAME_H_
+#endif _VISUALIZER_FRAME_H_

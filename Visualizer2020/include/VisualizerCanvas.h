@@ -4,7 +4,6 @@
 #include "wx/wx.h"
 #include "wx/glcanvas.h"
 
-
 #pragma once
 class VisualizerCanvas : public wxGLCanvas
 {
@@ -28,5 +27,5 @@ private:
     wxDECLARE_EVENT_TABLE();
 };
 
-#endif // _VISUALIZER_CANVAS_H_
+#endif _VISUALIZER_CANVAS_H_
 
